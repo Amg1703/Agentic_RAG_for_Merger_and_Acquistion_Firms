@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from fastapi import FastAPI
-
+from pipeline.ingestion_and_embedding_pipeline import ingest_document
 
 import inngest
 import inngest.fast_api
@@ -31,15 +31,29 @@ inngest_client=inngest.Inngest(
 
 @inngest_client.create_function(
     fn_id='RAG: INGEST DOCUMENTS',
-    trigger=inngest.TriggerEvent(event="ingest_document")
+    trigger=inngest.TriggerEvent(event="call_ingest_document_pipeline")
 )
-async def ingest_document(context: inngest.Context):
-    return {'Hello':'World'}
+async def call_ingest_document_pipeline(context: inngest.Context):
+    # THIS FUNCTION WILL BE TRIGGERED WHEN THE EVENT "ingest_document" IS CALLED 
+    # THE CONTEXT PARAMETER CONTAINS ALL THE INFORMATION ABOUT THE EVENT AND THE DATA THAT IS PASSED TO THE EVENT 
+    # WE CAN ACCESS THE DATA USING context.data 
+    data = context.data
+    # NOW WE CAN CALL THE ACTUAL INGEST FUNCTION THAT WE HAVE DEFINED IN pipeline/ingest.py 
+    result = await ingest_document_pipeline(context)
+    return result
+
+@inngest_client.create_function(fn_id='RETRIEVE DOCUMENTS BASED ON USER QUERY', 
+                                trigger=inngest.TriggerEvent(event='call_retrieve_documents_pipeline'))
+async def call_retrieve_documents_pipeline(context: inngest.Context):
+    result = await retrieve_documents(context)
+    return result 
+
+
 
 app = FastAPI()
 
 #  SO HERE INNGEST SIT IN BETWEEN OUR API AND CLIENT 
 # NORMALLY WHEN THE USER SENDS A REQUEST TO OUR FRONTEND IT IS DIRECTED TO OUR API DIRECTLY
 # BUT NOW INNGEST THE CLIENTS REQUEST IS FORWARED TO INNGEST'S DEVELOPMENTAL SERVER WHICH THEN FORMATS AND FORWARDS IT TO OUR API 
-inngest.fast_api.serve(app, inngest_client, functions=[ingest_document])
+inngest.fast_api.serve(app, inngest_client, functions=[ingest_document,retrieve_documents])
 
