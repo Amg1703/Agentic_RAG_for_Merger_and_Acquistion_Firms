@@ -24,6 +24,7 @@ dependencies = [
     { name = "llama-index" },
     { name = "llama-index-embeddings-openai" },
     { name = "llama-index-llms-openai" },
+    { name = "llmsherpa" },
     { name = "python-dotenv" },
     { name = "qdrant-client" },
     { name = "streamlit" },
@@ -38,6 +39,7 @@ requires-dist = [
     { name = "llama-index", specifier = ">=0.14.21" },
     { name = "llama-index-embeddings-openai", specifier = ">=0.6.0" },
     { name = "llama-index-llms-openai", specifier = ">=0.7.5" },
+    { name = "llmsherpa", specifier = ">=0.1.4" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "qdrant-client", specifier = ">=1.17.1" },
     { name = "streamlit", specifier = ">=1.56.0" },
@@ -1024,6 +1026,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/f6/30/31066c980690ba7799350ac1ce712ab3f062d9948bca60dd81879fa9539c/llama_index_workflows-2.19.1.tar.gz", hash = "sha256:13328139112bf0f0442e1e87a9c57d94c6f992b14d17546f58e61bcc76546850", size = 92084, upload-time = "2026-04-22T18:30:30.033Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/0f/5c/a265a1871306de0285872d3dc913b6d60176c0d4f16907f439d187c0fda7/llama_index_workflows-2.19.1-py3-none-any.whl", hash = "sha256:972b6b2304c3d0621eba794ef78f05648a47e7239962b1e811177a4feb14e0d6", size = 115861, upload-time = "2026-04-22T18:30:31.173Z" },
+]
+
+[[package]]
+name = "llmsherpa"
+version = "0.1.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "urllib3" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a9/3a/aa8e95bb37af926953314601cb2cc98e0e03846006d1ba13569e7ba6cb8e/llmsherpa-0.1.4.tar.gz", hash = "sha256:18789840ded3d7e37db6a5c668dac2b0a58f20e426beaed3e60554dee0a5ecb0", size = 17618, upload-time = "2024-01-24T05:17:33.094Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/48/14/9292de86e30e935df9c51da95dc530b3755937289a597566a12b86d1388e/llmsherpa-0.1.4-py3-none-any.whl", hash = "sha256:88a651eacf221a997a9a9795903fbb70ddb211cd2e82831507de01284c917667", size = 13018, upload-time = "2024-01-24T05:17:31.511Z" },
 ]
 
 [[package]]

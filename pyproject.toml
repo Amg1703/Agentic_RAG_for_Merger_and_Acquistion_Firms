@@ -11,6 +11,7 @@ dependencies = [
     "llama-index>=0.14.21",
     "llama-index-embeddings-openai>=0.6.0",
     "llama-index-llms-openai>=0.7.5",
+    "llmsherpa>=0.1.4",
     "python-dotenv>=1.2.2",
     "qdrant-client>=1.17.1",
     "streamlit>=1.56.0",
