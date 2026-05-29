@@ -9,28 +9,27 @@ import pydantic
     PIPELINE CHUNKS IT BASED ON HIERARCHY AND CONTEXT AND RETURNS A LIST OF HUMAN READABLE CHUNKS 
     2. THE SOURCE ID DATA TYPE IS ESSENTIALLY THE NAME OF PDF OR URL FROM WHICH THE LLMSERPA DID THE CHUNKING ON 
     AND LLMSERPA BY DEFAULT RETURNS THE SOURCE ID WHICH IS PDF PATH OR URL OF THE FILE"""
-class Pdf_Loading_and_Chunking_Data_Type(pydantic.BaseModel):
-    list_of_chunk_data_type: list[str]
-    source_id_data_type: str = None
-
+class RAGChunkAndSource(pydantic.BaseModel):
+    chunks: list[str]
+    source_id: str = None
 
 """ EMBEDDING DATA TYPE RECEIVES A LIST OF CHUNKS AND RETURNS A LIST OF CHUNKS """
-class Embedding_Data_Type(pydantic.BaseModel):
-    list_of_embedding_type: list[list[float]]
+class RAGUpsertResult(pydantic.BaseModel):
+    No_of_vectors_stored: int
 
 
 """ UPDATE AND INSERT NEW VECTORS 
     SO OUR UPDATE AND INSERT WILL RETURN THE NUMBER OF CHUNKS THAT HAVE BEEN INGESTED AND STORED IN THE VECTOR DATABASE"""
-class Update_and_Insert_New_Vectors_Data_Type(pydantic.BaseModel):
-    number_of_ingested_chunks_result_data_type: int
-
+class RAGQueryResult(pydantic.BaseModel):
+    user_query:str
+    sources: list[str]
+    number_of_chunks_to_be_queried: int
 
 
 """ A SEPARATE DATA TYPE FOR USER QUERY AS THE USER WILL SUPPLYING US THE QUERY, PDF PATH AND THE NUMBER OF CHUNKS REQUIRED"""
-class User_Query_Data_Type(pydantic.BaseModel):
-    user_query: str 
-    pdf_path: list[str]
-    number_of_chunks_required: int 
+class RAGSearchResult(pydantic.BaseModel):
+    contexts_retrieved_from_vectorDB: list[str]
+    sources_of_contexts_retrieved: list[str]
     
 
     
